@@ -1,0 +1,24 @@
+{
+    "idf.adapterTargetName": "esp32c3",
+    "idf.flashType": "UART",
+    "idf.openOcdConfigs": [
+        "board/esp32c3-builtin.cfg"
+    ],
+    "idf.portWin": "COM18",
+    "files.associations": {
+        "u8g2.h": "c",
+        "app_pwm.h": "c",
+        "task.h": "c",
+        "unistd.h": "c",
+        "app_oled.h": "c",
+        "gpio.h": "c",
+        "string.h": "c",
+        "app_iic.h": "c",
+        "freertos.h": "c",
+        "stdlib.h": "c",
+        "spi_master.h": "c",
+        "app_divers.h": "c",
+        "portmacro.h": "c",
+        "event_groups.h": "c"
+    }
+}
