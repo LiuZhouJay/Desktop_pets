@@ -21,7 +21,12 @@
 #include "esp_log.h"
 #include "esp_system.h"
 #include "esp_err.h"
-
+#include "nvs_flash.h"
+#include "esp_event.h"
+#include "esp_netif.h"
+#include "esp_wifi.h"
+#include "esp_http_client.h"
+#include "cJSON.h"
 
 #include "u8g2.h"
 #include "u8x8.h"
@@ -35,8 +40,8 @@
 #include "app_iic.h"
 #include "app_pwm.h"
 #include "app_gpio.h"
-
-
+#include "app_wifi.h"
+#include "app_get_weather.h"
 
 
 

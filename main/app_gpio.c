@@ -1,23 +1,30 @@
 #include "app_gpio.h"
 
-void app_gpio_init(void)
+int app_key_read(int i)
 {
-    gpio_reset_pin(0);
-    gpio_reset_pin(1);
-    gpio_set_direction(0,GPIO_MODE_OUTPUT);
-    gpio_set_direction(1,GPIO_MODE_INPUT);
-    while(1)
+    if(gpio_get_level(i) == 0)
     {
-        if(gpio_get_level(1) == 1){
-                gpio_set_level(0,0);
-                printf("test: %d",gpio_get_level(1));
-                vTaskDelay(500 / portTICK_PERIOD_MS);
+        vTaskDelay(10 / portTICK_PERIOD_MS);
+        if(gpio_get_level(i) == 0)
+        {
+            return 0;
         }
-        else{
-            gpio_set_level(0,1);
-            printf("test: %d",gpio_get_level(1));
-            vTaskDelay(500 / portTICK_PERIOD_MS);
+        else
+        {
+            return 1;
         }
     }
+    else{
+        return 1;
+    }
+    
+}
+
+void app_gpio_init(void)
+{
+    gpio_reset_pin(18);
+    gpio_reset_pin(19);
+    gpio_set_direction(19,GPIO_MODE_INPUT);
+    gpio_set_direction(18,GPIO_MODE_INPUT);
     
 }
