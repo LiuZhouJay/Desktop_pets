@@ -91,9 +91,6 @@ void app_http_get_weather(esp_http_client_handle_t client)
 void app_get_weather_init(void)
 {
 
-    // 01 联网
-    app_wifi_init();
-
     // 02 创建进程，用于处理http通讯
     // 02-2 配置http结构体
 

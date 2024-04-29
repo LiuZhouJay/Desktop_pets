@@ -2,6 +2,8 @@
 
 uint8_t conunt =0;
 
+EventGroupHandle_t Event_Handle =NULL;
+
 SemaphoreHandle_t wifi_connect_sendfinish_semaphore = NULL;
 
 void STA_Callback(void* event_handler_arg,esp_event_base_t event_base,int32_t event_id,void* event_data)
@@ -21,7 +23,9 @@ void STA_Callback(void* event_handler_arg,esp_event_base_t event_base,int32_t ev
         printf("连接成功\n");
         ip_event_got_ip_t*info =(ip_event_got_ip_t*)event_data;
         printf("IP:"IPSTR"\n",IP2STR(&info->ip_info.ip));
-        xSemaphoreGive(wifi_connect_sendfinish_semaphore);
+        
+        xEventGroupSetBits(Event_Handle,0x01 << 0); 
+        xEventGroupSetBits(Event_Handle,0x01 << 1); 
     }
 }
 
@@ -57,5 +61,5 @@ void app_wifi_init(void)
     //启动
     esp_wifi_start();
 
-    wifi_connect_sendfinish_semaphore = xSemaphoreCreateBinary();
+    Event_Handle = xEventGroupCreate();	
 }

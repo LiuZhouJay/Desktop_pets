@@ -1,12 +1,17 @@
 #include "app_divers.h"
 
+static EventBits_t r_event;
+
+extern EventGroupHandle_t Event_Handle;
 extern esp_http_client_handle_t client;
-extern SemaphoreHandle_t wifi_connect_sendfinish_semaphore;
+
+extern char mqtt_data[100];
+
 static void servo_task(void *arg)
 {
-    set_servo_angle(90,PWM_channel_1);
     while (1)
     {
+        app_set_angle(mqtt_data);
         vTaskDelay(100 / portTICK_PERIOD_MS);   
     } 
 }
@@ -25,9 +30,13 @@ static void oled_task(void *arg)
 
 static void get_weather_task(void *arg)
 {
-    xSemaphoreTake(wifi_connect_sendfinish_semaphore, (TickType_t)portMAX_DELAY);
+    r_event = xEventGroupWaitBits(Event_Handle,  /* 事件对象句柄 */
+                                  (0x01 << 0),/* 接收线程感兴趣的事件 */
+                                  pdTRUE,   /* 退出时清除事件位 */
+                                  pdTRUE,   /* 满足感兴趣的所有事件 */
+                                  (TickType_t)portMAX_DELAY);/* 指定超时事件,一直等 */
+
     while(1){
-        // draw(&u8g2);
         app_http_get_weather(client);
     	vTaskDelay(60000 / portTICK_PERIOD_MS);
     }   
@@ -36,7 +45,9 @@ static void get_weather_task(void *arg)
 
 void app_main(void)
 {
+    app_wifi_init();
     app_get_weather_init();
+    app_mqtt_init();
     app_pwm_init();
     app_gpio_init();
     
