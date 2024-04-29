@@ -31,6 +31,32 @@ void set_servo_angle(uint8_t angle,ledc_channel_t chanel)
     }
 }
 
+void app_servo_action(void)
+{
+    
+}
+
+//这个函数后面可以删除，主要是用来测试mqtt舵机使用
+void app_set_angle(char *data)
+{
+    if(*data == '1')
+    {
+        set_servo_angle(0,PWM_channel_1);
+    }
+    if(*data == '2')
+    {
+        set_servo_angle(45,PWM_channel_2);
+    }
+    if(*data == '3')
+    {
+        set_servo_angle(90,PWM_channel_1);
+    }
+    if(*data == '4')
+    {
+        set_servo_angle(180,PWM_channel_2);
+    }
+}
+
 void app_pwm_init(void) 
 {
     ledc_timer_config_t ledc_timer = { 

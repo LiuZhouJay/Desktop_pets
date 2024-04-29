@@ -5,6 +5,7 @@
 
 void app_pwm_init(void);
 void set_servo_angle(uint8_t angle,ledc_channel_t chanel);
+void app_set_angle(char *data);
 
 #define PWM_channel_1 LEDC_CHANNEL_1
 #define PWM_channel_2 LEDC_CHANNEL_2

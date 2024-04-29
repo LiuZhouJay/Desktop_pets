@@ -11,6 +11,8 @@
 
 
 #include <stdio.h>
+#include <stdint.h>
+#include <stddef.h>
 #include <inttypes.h>
 #include "sdkconfig.h"
 #include "esp_chip_info.h"
@@ -27,6 +29,10 @@
 #include "esp_wifi.h"
 #include "esp_http_client.h"
 #include "cJSON.h"
+#include "lwip/sockets.h"
+#include "lwip/dns.h"
+#include "lwip/netdb.h"
+#include "mqtt_client.h"
 
 #include "u8g2.h"
 #include "u8x8.h"
@@ -42,6 +48,7 @@
 #include "app_gpio.h"
 #include "app_wifi.h"
 #include "app_get_weather.h"
+#include "app_mqtt.h"
 
 
 
