@@ -40,7 +40,7 @@
 #include "driver/spi_master.h"
 #include "driver/i2c.h"
 #include "driver/ledc.h"
-
+#include "driver/uart.h"
 
 #include "app_oled.h"
 #include "app_iic.h"
@@ -49,8 +49,7 @@
 #include "app_wifi.h"
 #include "app_get_weather.h"
 #include "app_mqtt.h"
-
-
+#include "app_uart.h"
 
 
 
