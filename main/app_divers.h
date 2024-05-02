@@ -8,7 +8,7 @@
 #include "freertos/timers.h"
 #include "freertos/event_groups.h"
 #include "freertos/portmacro.h"
-
+#include "freertos/FreeRTOSConfig.h" 
 
 #include <stdio.h>
 #include <stdint.h>
@@ -33,6 +33,16 @@
 #include "lwip/dns.h"
 #include "lwip/netdb.h"
 #include "mqtt_client.h"
+#include "nimble/nimble_port.h" 
+#include "nimble/nimble_port_freertos.h" 
+#include "host/ble_hs.h" 
+#include "host/util/util.h" 
+#include "console/console.h" 
+#include "services/gap/ble_svc_gap.h" 
+#include "host/ble_gatt.h"
+#include "host/ble_uuid.h"
+#include "services/gatt/ble_svc_gatt.h"
+#include "esp_nimble_hci.h"
 
 #include "u8g2.h"
 #include "u8x8.h"
@@ -50,8 +60,8 @@
 #include "app_get_weather.h"
 #include "app_mqtt.h"
 #include "app_uart.h"
-
-
+#include "app_ble.h"
+#include "app_svr.h" 
 
 
 #endif // !__APP_DIVERS_H__

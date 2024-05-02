@@ -1,5 +1,15 @@
 #include "app_pwm.h"
 
+extern char mqtt_data[100];
+
+static void servo_task(void *arg)
+{
+    while (1)
+    {
+        app_set_angle(mqtt_data);
+        vTaskDelay(100 / portTICK_PERIOD_MS);   
+    } 
+}
 
 //205  410  614 819 1024 
 void set_servo_angle(uint8_t angle,ledc_channel_t chanel)
@@ -101,5 +111,7 @@ void app_pwm_init(void)
     ledc_channel_config(&ledc_channel2);
     ledc_channel_config(&ledc_channel3);
     ledc_channel_config(&ledc_channel4);
+
+    xTaskCreate(servo_task, "servo_task", 2048, NULL, 10, NULL);
 
 }
