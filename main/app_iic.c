@@ -7,8 +7,8 @@
 
 #define EXAMPLE_LCD_PIXEL_CLOCK_HZ    (400 * 1000)
 
-#define EXAMPLE_PIN_NUM_SDA           5
-#define EXAMPLE_PIN_NUM_SCL           4
+#define EXAMPLE_PIN_NUM_SDA           10
+#define EXAMPLE_PIN_NUM_SCL           9
 //使用OLED的硬件地址，i2c_master_write_to_device()函数内会转换为写地址
 #define EXAMPLE_I2C_HW_ADDR           0x3C
 

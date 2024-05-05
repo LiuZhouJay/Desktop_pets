@@ -13,12 +13,15 @@
 // 02-1 定义需要的变量
 char output_buffer[MAX_HTTP_OUTPUT_BUFFER] = {0}; // 用于接收通过http协议返回的数据
 int content_length = 0;                           // http协议头的长度
+char *weather_data = "null";
+char *temperature_data = "null";
 
 esp_http_client_config_t config;
 esp_http_client_handle_t client;
 
-char *weather_data = "null";
-char *temperature_data = "null";
+static EventBits_t r_event;
+extern EventGroupHandle_t Event_Handle;
+
 void app_http_get_weather(esp_http_client_handle_t client)
 {
     // 与目标主机创建连接，并且声明写入内容长度为0
@@ -88,6 +91,20 @@ void app_http_get_weather(esp_http_client_handle_t client)
     vTaskDelay(3000 / portTICK_PERIOD_MS);
 }
 
+static void get_weather_task(void *arg)
+{
+    r_event = xEventGroupWaitBits(Event_Handle,  /* 事件对象句柄 */
+                                  (0x01 << 0),/* 接收线程感兴趣的事件 */
+                                  pdTRUE,   /* 退出时清除事件位 */
+                                  pdTRUE,   /* 满足感兴趣的所有事件 */
+                                  (TickType_t)portMAX_DELAY);/* 指定超时事件,一直等 */
+
+    while(1){
+        app_http_get_weather(client);
+    	vTaskDelay(60000 / portTICK_PERIOD_MS);
+    }   
+}
+
 void app_get_weather_init(void)
 {
 
@@ -108,4 +125,6 @@ void app_get_weather_init(void)
     esp_http_client_set_method(client, HTTP_METHOD_GET);
 
     // 02-3 循环通讯
+
+    xTaskCreate(get_weather_task, "get_weather_task", 2048, NULL, 10, NULL);
 }

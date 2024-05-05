@@ -4,8 +4,6 @@ uint8_t conunt =0;
 
 EventGroupHandle_t Event_Handle =NULL;
 
-SemaphoreHandle_t wifi_connect_sendfinish_semaphore = NULL;
-
 void STA_Callback(void* event_handler_arg,esp_event_base_t event_base,int32_t event_id,void* event_data)
 {
     if(event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START){

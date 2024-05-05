@@ -5,7 +5,7 @@ static const char *TAG = "MQTT_EXAMPLE";
 
 static EventBits_t r_event;
 extern EventGroupHandle_t Event_Handle;
-extern char mqtt_data[100];
+char mqtt_data[100] = {0};
 static void log_error_if_nonzero(const char *message, int error_code)
 {
     if (error_code != 0) {
