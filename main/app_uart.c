@@ -48,7 +48,13 @@ void uart_receive_task(void *arg)
 
 void uart_send_task(void *arg)
 {
-    // uart_write_bytes(UART_NUM_1, (const char *)data, len);
+    char data[] = "hello world\r\n";
+    size_t len = strlen(data);
+    while(1)
+    {
+        uart_write_bytes(UART_NUM_1,data, len);
+        vTaskDelay(2000 / portTICK_PERIOD_MS);
+    }
 }
 
 
@@ -65,9 +71,10 @@ void app_uart_init(void)
 
     uart_driver_install(UART_NUM_1, 1024 * 5, 1024 * 5, 30, &uart1_receive_queue, 0);
     uart_param_config(UART_NUM_1, &uart_config);
-    uart_set_pin(UART_NUM_1, 6, 7, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+    // uart_set_pin(UART_NUM_1, 20, 21, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+    uart_set_pin(UART_NUM_1, 21, 20, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
 
     xTaskCreate(uart_receive_task, "uart_receive_task", 1024 * 4, NULL, 10, NULL);
-    // xTaskCreate(uart_send_task, "uart_send_task", 2048, NULL, 10, NULL);
+    xTaskCreate(uart_send_task, "uart_send_task", 2048, NULL, 10, NULL);
 
 }

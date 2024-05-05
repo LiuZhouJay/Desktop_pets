@@ -49,6 +49,7 @@ void app_key_read(void)
                             g_key[i].short_flag = 0;
                             g_key[i].two_flag   = 0;
                             g_key[i].press_cnt  = 0;     //长按则清除双击的按下按键计数 
+                            g_key[0].key_id = i;
                             
                         }else if(press_time_cnt[i] > 9)  //短按(持续时间>=90ms)
                         {
@@ -75,6 +76,7 @@ void app_key_read(void)
                             g_key[i].two_flag   = 0;
                             g_key[i].press_cnt  = 0;
                             g_key[i].judge_flag = 0;
+                            g_key[0].key_id = i;
                             wait_press_cnt[i]   = 0;    
                         }
                         
@@ -87,6 +89,7 @@ void app_key_read(void)
                             g_key[i].long_flag  = 0;
                             g_key[i].press_cnt  = 0;
                             g_key[i].judge_flag = 0;
+                            g_key[0].key_id = i;
                             wait_press_cnt[i]   = 0;
                             press_time_cnt[i]   = 0;
                         }
